@@ -1,0 +1,17 @@
+{
+  "name": "livefyre-personalized-feed-example",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^4.1.11",
+    "from2": "0.0.0",
+    "watchify": "^0.10.2"
+  },
+  "dependencies": {}
+}
