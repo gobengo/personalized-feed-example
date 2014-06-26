@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "activity-list": "git+https://github.com/gobengo/activity-list.git",
-    "sockjs-client": "git+https://github.com/sockjs/sockjs-client.git",
+    "chronos-stream": "git+https://github.com/gobengo/chronos-stream.git",
     "stream-client": "git+https://github.com/Livefyre/stream-client.git"
   }
 }
