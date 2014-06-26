@@ -9,15 +9,28 @@ var token = authQuery ? authQuery[1] : null;
 
 console.log('loading personalized feed example');
 
-var feed = new ActivityList(document.getElementById('feed'));
+// The Feed container has a list
+// and clicking on something with [data-show-more] should show more
+var feed = document.getElementById('feed');
+feed.addEventListener('click', function (e) {
+    var target = e.target;
+    if ( ! target.attributes['data-show-more']) {
+        return;
+    }
+    console.log('calling list.showMore()');
+    list.showMore();
+});
+var list = window.list = new ActivityList();
+// prepend the ActivityList
+feed.insertBefore(list.el, feed.lastElementChild)
 
 
 
 
-// feed.streamMore(require('./mock-activity-stream'));
-feed.streamMore(chronosActivityStream(
-    'urn:livefyre:profiles-qa.fyre.co:user=5329c8c285889e7bc6000000:personalStream',
-    auth))
+list.streamMore(require('./mock-activity-stream'));
+// list.streamMore(chronosActivityStream(
+//     'urn:livefyre:profiles-qa.fyre.co:user=5329c8c285889e7bc6000000:personalStream',
+//     auth))
 
 // real-time stuff from stream
 var sc = new LivefyreStream({
@@ -27,7 +40,7 @@ var sc = new LivefyreStream({
 
 onUser(function (user) {
     // sc.connect(user.get('token'), 'sample');
-    // feed.stream(sc);
+    // list.stream(sc);
 });
 
 
