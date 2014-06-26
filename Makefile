@@ -5,10 +5,10 @@ all: build
 build: node_modules
 
 dist: build
-	mkdir -p dist && ./node_modules/.bin/browserify index.js -o dist/personalized-feed-example.js
+	mkdir -p dist && ./node_modules/.bin/browserify index.js -o dist/personalized-feed-example.min.js
 
 watch: build
-	./node_modules/.bin/watchify index.js -o dist/personalized-feed-example.js
+	./node_modules/.bin/watchify index.js -o dist/personalized-feed-example.min.js
 
 # if package.json changes, install
 node_modules: package.json

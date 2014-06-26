@@ -1,6 +1,6 @@
 {
-  "name": "livefyre-personalized-feed-example",
-  "version": "0.0.0",
+  "name": "personalized-feed-example",
+  "version": "0.0.0-dev.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,8 @@
     "from2": "0.0.0",
     "watchify": "^0.10.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "sockjs-client": "git+https://github.com/sockjs/sockjs-client.git",
+    "stream-client": "git+https://github.com/Livefyre/stream-client.git"
+  }
 }
