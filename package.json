@@ -16,6 +16,7 @@
   "dependencies": {
     "activity-list": "git+https://github.com/gobengo/activity-list.git",
     "chronos-stream": "git+https://github.com/gobengo/chronos-stream.git",
-    "stream-client": "git+https://github.com/Livefyre/stream-client.git"
+    "stream-client": "git+https://github.com/Livefyre/stream-client.git",
+    "through2": "^0.5.1"
   }
 }

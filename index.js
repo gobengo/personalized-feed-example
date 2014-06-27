@@ -1,6 +1,7 @@
 var ActivityList = require('activity-list');
 var ChronosStream = require('chronos-stream');
 var LivefyreStream = require('livefyre-stream-client');
+var through = require('through2');
 
 // add ?auth=lftoken to auth
 var auth;
@@ -25,9 +26,9 @@ var list = window.list = new ActivityList();
 feed.insertBefore(list.el, feed.lastElementChild)
 
 
+list.stream(require('./mock-activity-stream')().pipe(throttle(3000)));
 
-
-list.streamMore(require('./mock-activity-stream'));
+list.streamMore(require('./mock-activity-stream')());
 // list.streamMore(chronosActivityStream(
 //     'urn:livefyre:profiles-qa.fyre.co:user=5329c8c285889e7bc6000000:personalStream',
 //     auth))
@@ -61,6 +62,19 @@ function chronosActivityStream(topic, auth) {
     //     activities.auth(auth);
     // }
     return activities;
+}
+
+/**
+ * Create a transform that throttles input to only re-emit
+ * after N ms
+ */
+function throttle(ms) {
+    var opts = { highWaterMark: 0, lowWaterMark: 0 };
+    return through.obj(opts, function (chunk, e, done) {
+        setTimeout(function () {
+            done(null, chunk);
+        }, ms);
+    });
 }
 
 /**
