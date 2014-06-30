@@ -1,12 +1,33 @@
 <!doctype html>
-<button id="auth-button"></button>
-<div id="auth-log"></div>
 
 <h1>Example Personalized Feed</h1>
 <div id="feed">
+    <ul role="list"></ul>
     <button data-show-more>Show More</button>
 </div>
 
 
 <script src="https://cdn.livefyre.com/Livefyre.js"></script>
 <script src="./dist/personalized-feed-example.min.js"></script>
+<script>
+// create the feed
+var feed = new Livefyre.PersonalizedNewsFeed({
+    el: document.getElementById('feed')
+});
+
+/**
+ * (optionally) Specify the renderActivity method to create HTMLElements
+ * for each piece of data
+ */
+// feed.renderActivity = function (activity) {
+//     var el = document.createElement('pre');
+//     el.innerHTML = JSON.stringify(activity, null, '  ');
+//     return el;
+// };
+
+/**
+ * When a user logs in, call feed.setToken with his or her
+ * Livefyre Authentication Token
+ */
+feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNzUyODYwOC40Mzg5MTcsICJ1c2VyX2lkIjogIjUzYTg3Y2RhYTkwYTgzMzM3OTAwMDAwMCJ9.GbRXxw-R0GNo3u8yGX4u03MLCQ4LvBBnqL4xejMDBwk');
+</script>
