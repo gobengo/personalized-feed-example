@@ -7,6 +7,12 @@ var ActivityElement = require('activity-element');
 
 module.exports = PersonalizedNewsFeed;
 
+/**
+ * A list of rendered activities that are personalized to the logged-in user.
+ * @param [opts] {object} options
+ * @param [opts.el] {HTMLElement} an HTMLElement to render in. If not provided,
+ *   one will be created automatically and accessible at .el
+ */
 function PersonalizedNewsFeed(opts) {
     opts = opts || {};
     this.el = opts.el || document.createElement('div');
@@ -25,6 +31,9 @@ function PersonalizedNewsFeed(opts) {
     this._addEventListeners();
 }
 
+/**
+ * Request that {amount} more activities are added to the Feed
+ */
 PersonalizedNewsFeed.prototype.showMore = function (amount) {
     this._archiveStream.setGoal(amount || this.showMoreAmount);
 };
@@ -48,7 +57,9 @@ PersonalizedNewsFeed.prototype.renderActivity = function (activity) {
         console.log("Couldnt render element for activity", activity);
         return;
     }
-    return el;
+    var li = document.createElement('li');
+    li.appendChild(el);
+    return li;
 };
 
 /**

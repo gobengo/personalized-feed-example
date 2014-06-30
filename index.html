@@ -1,8 +1,21 @@
 <!doctype html>
-
+<script type="text/html" id="activity-template">
+    <article class="custom-activity"
+             vocab="https://w3id.org/activity-streams/v2">
+        <header>
+            <time property="published"></time>
+            <h1 property="title"></h1>
+        </header>
+        <ul property="tags">
+          <li><a rel="tag" property="displayName"></a></li>
+        </ul>
+    </article>
+</script>
+<link rel="stylesheet" href="./index.css"></link>
 <h1>Example Personalized Feed</h1>
-<div id="feed">
-    <ul role="list"></ul>
+
+<div id="feed" class="custom-activity-feed">
+    <ul role="list" class="custom-activity-list"></ul>
     <button data-show-more>Show More</button>
 </div>
 
@@ -10,24 +23,115 @@
 <script src="https://cdn.livefyre.com/Livefyre.js"></script>
 <script src="./dist/personalized-feed-example.min.js"></script>
 <script>
+(function () {
 // create the feed
 var feed = new Livefyre.PersonalizedNewsFeed({
     el: document.getElementById('feed')
 });
 
 /**
- * (optionally) Specify the renderActivity method to create HTMLElements
- * for each piece of data
- */
-// feed.renderActivity = function (activity) {
-//     var el = document.createElement('pre');
-//     el.innerHTML = JSON.stringify(activity, null, '  ');
-//     return el;
-// };
-
-/**
  * When a user logs in, call feed.setToken with his or her
  * Livefyre Authentication Token
  */
 feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNzUyODYwOC40Mzg5MTcsICJ1c2VyX2lkIjogIjUzYTg3Y2RhYTkwYTgzMzM3OTAwMDAwMCJ9.GbRXxw-R0GNo3u8yGX4u03MLCQ4LvBBnqL4xejMDBwk');
+
+/**
+ * Specify the renderActivity method to create HTMLElements
+ * for each piece of data
+ */
+(function (template) {
+    // Cache an HTMLElement created from the template
+    var temp = document.createElement('div');
+    temp.innerHTML = template;
+    template = temp.firstElementChild;
+    // activity (object) -> HTMLElement
+    feed.renderActivity = function (activity) {
+        var collection = (activity && activity.object) || {};
+        if (collection.objectType !== 'collection') {
+            // only render collection activities
+            return;
+        }
+        var el = template.cloneNode(true);
+        el.setAttribute('resource', collection.id)
+        // title
+        var titleH1 = el.querySelector(prop('title'));
+        titleH1.innerHTML = collection.title;
+        if (collection.url) {
+            // wrap title in link with proper .url
+            var titleLink = document.createElement('a');
+            titleLink.setAttribute('href', collection.url);
+            titleLink.appendChild(titleH1.cloneNode(true));
+            titleH1.parentNode.replaceChild(titleLink, titleH1);
+        }
+        // published time
+        var publishedEl = el.querySelector(prop('published'));
+        publishedEl.setAttribute('datetime', activity.published);
+        publishedEl.innerHTML = formatPublished(activity.published);
+        // tags
+        var tagList = el.querySelector(prop('tags'));
+        var tagTemplate = tagList.firstElementChild.cloneNode(true);
+        // remove template children
+        while (tagList.firstChild) {
+            tagList.removeChild(tagList.firstChild);
+        }
+        var tagFrag = document.createDocumentFragment();
+        (collection.tags || []).forEach(function (tag) {
+            var tagEl = tagTemplate.cloneNode(true);
+            tagEl.querySelector(prop('displayName')).innerHTML = tag.displayName;
+            tagEl.setAttribute('resource', tag.id);
+            tagFrag.appendChild(tagEl);
+        });
+        tagList.appendChild(tagFrag);
+        return el;
+    };
+    function prop(name) {
+        return '[property="{name}"'.replace('{name}', name);
+    }
+    function formatPublished(iso8601) {
+        var d = new Date(Date.parse(iso8601));
+        return formatDate(d);
+    }
+}(document.getElementById('activity-template').innerHTML));
+
+/**
+ * Format a date object to be displayed to humans
+ * @param date {Date} A JavaScript Date object
+ * @return {string} A formatted timestamp like "5/27//06 • 3:26 AM"
+ */
+var MONTH_STRINGS = [
+    'Jan', 'Feb', 'Mar', 'Apr',
+    'May', 'Jun','Jul', 'Aug',
+    'Sep', 'Oct', 'Nov', 'Dec'
+];
+
+function formatDate(date, relativeTo) {
+    relativeTo = relativeTo || new Date();
+    var diffMs = date.getTime() - relativeTo.getTime(),
+        dateString;
+    // Future
+    if (diffMs > 0) {
+        return '';
+    }
+    // Less than 60s ago -> 5s
+    if (diffMs > -60 * 1000) {
+        return Math.round( -1 * diffMs / 1000) + 's';
+    }
+    // Less than 1h ago -> 5m
+    if (diffMs > -60 * 60 * 1000) {
+        return Math.round( -1 * diffMs / (1000 * 60)) + 'm';
+    }
+    // Less than 24h ago -> 5h
+    if (diffMs > -60 * 60 * 24 * 1000) {
+        return Math.round( -1 * diffMs / (1000 * 60 * 60)) + 'h';
+    }
+    // >= 24h ago -> 6 Jul
+    dateString = date.getDate() + ' ' + MONTH_STRINGS[date.getMonth()];
+    // or like 6 Jul 2012 if the year if its different than the relativeTo year
+    if (date.getFullYear() !== relativeTo.getFullYear()) {
+        dateString += ' ' + date.getFullYear();
+    }
+    return dateString;
+};
+
+}());
 </script>

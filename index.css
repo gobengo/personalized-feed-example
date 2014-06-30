@@ -1,0 +1,72 @@
+/** This makes it easier to reason about block height/width */
+.custom-activity-feed, .custom-activity-feed * {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/** center the show more button */
+.custom-activity-feed > *[data-show-more] {
+    display: block;
+    margin: 0 auto;
+}
+
+/** The feed contains a list */
+ul.custom-activity-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/**
+ * Each activity item in the feed
+ */
+
+/* all but the first should have a top border */
+.custom-activity-list .custom-activity {
+    border-top: 1px solid rgb(209,209,209);
+}
+.custom-activity-list .custom-activity:first-child {
+    border-top: 0px;
+}
+
+/* should have consistent font size */
+.custom-activity {
+    font-size: 1em;
+    padding: .5em;
+}
+.custom-activity > header {
+    margin-bottom: 0.5em;
+}
+.custom-activity > header h1 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* published time in top-right corner */
+.custom-activity > header > time {
+    float: right;
+}
+
+/* flatten out tags list */
+.custom-activity > [property="tags"] {
+    list-style-type: none;
+    padding: 0;
+}
+.custom-activity > [property="tags"] > * {
+    display: inline-block;
+}
+/* space char after each tag */
+.custom-activity > [property="tags"] > *:after {
+    content: "\00a0";
+}
+
+/** each tag is styled fancy */
+.custom-activity > [property="tags"] > * > a[rel="tag"] {
+    background-color: rgb(234,234,228);
+    display: inline-block;
+    padding: .25em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
