@@ -24,11 +24,12 @@
 
 
 <script src="https://cdn.livefyre.com/Livefyre.js"></script>
-<script src="./dist/personalized-feed-example.min.js"></script>
+<script src="./dist/personalized-feed-stub.min.js"></script>
 <script>
 (function () {
+
 // create the feed
-var feed = new Livefyre.PersonalizedNewsFeed({
+var feed = new (Livefyre['personalized-feed-stub'])({
     el: document.getElementById('feed')
 });
 
@@ -128,7 +129,7 @@ CustomActivityElement.prototype.renderTags = function () {
 }
 
 function prop(name) {
-    return '[property="{name}"'.replace('{name}', name);
+    return '[property="{name}"]'.replace('{name}', name);
 }
 
 function formatPublished(iso8601) {
