@@ -44,3 +44,37 @@ Livefyre.require(['personalized-feed-stub#0'], function (PersonalizedNewsFeed) {
 });
 </script>
 ```
+
+See [index.html](./index.html) in this repo for a more elaborate implementation of `.renderActivity` that renders Livefyre Collection metadata whenever an activity whose `object.objectType === 'collection'` streams by. [index.css](./index.css) renders these CustomActivityElements.
+
+## Advanced Features
+
+In the above example, we passed `PersonalizedNewsFeed` an element to render in.
+
+```html
+<div id="element-the-feed-should-be-in"></div>
+```
+
+By adding children to your container element (and sometimes some corresponding styles) you can unlock some extra features.
+
+### Custom ActivityList
+
+
+
+```html
+<div id="element-the-feed-should-be-in">
+    <button data-show-more>Show More</button>
+</div>
+```
+
+### Show More Button
+
+Add an element with a `data-show-more` attribute, and whenever that element is clicked, the PersonalizedNewsFeed will fetch more activities from the server, render them, and append them to the list.
+
+Other than the `data-show-more` attribute, you can add whatever 
+
+```html
+<div id="element-the-feed-should-be-in">
+    <button data-show-more>Show More</button>
+</div>
+```
