@@ -16,6 +16,7 @@ module.exports = PersonalizedNewsFeed;
 function PersonalizedNewsFeed(opts) {
     opts = opts || {};
     this.el = opts.el || document.createElement('div');
+    this._setLoading(true);
     // show this many more when asked
     this.showMoreAmount = 10;
     this._topic = null;
@@ -38,6 +39,17 @@ PersonalizedNewsFeed.prototype.showMore = function (amount) {
     this._archiveStream.setGoal(amount || this.showMoreAmount);
 };
 
+PersonalizedNewsFeed.prototype._setLoading = function (isLoading) {
+    isLoading = (arguments.length === 0) ? true : isLoading;
+    var el = this.el;
+    var loadingAttr = 'data-loading';
+    if (isLoading) {
+        el.setAttribute(loadingAttr, '');
+    } else {
+        el.removeAttribute(loadingAttr);
+    }
+};
+
 PersonalizedNewsFeed.prototype.setToken = function (token) {
     var parts = token.split('.');
     var dataPart = parts[1];
@@ -52,14 +64,7 @@ PersonalizedNewsFeed.prototype.setToken = function (token) {
  * Render an activity into an HTMLElement
  */
 PersonalizedNewsFeed.prototype.renderActivity = function (activity) {
-    var el = ActivityElement(activity);
-    if ( ! el) {
-        console.log("Couldnt render element for activity", activity);
-        return;
-    }
-    var li = document.createElement('li');
-    li.appendChild(el);
-    return li;
+    throw new Error("Please override PersonalizedNewsFeed#renderActivity");
 };
 
 /**
@@ -86,6 +91,7 @@ PersonalizedNewsFeed.prototype._createActivityList = function () {
 };
 
 PersonalizedNewsFeed.prototype._setTopic = function (topic) {
+    var self = this;
     if (topic === this._topic) {
         // same as before, do nothing
         return;
@@ -109,6 +115,19 @@ PersonalizedNewsFeed.prototype._setTopic = function (topic) {
         highWaterMark: 0,
         lowWaterMark: 0
     });
+    // we're fully loaded once the more stream holds onto stuff
+    // or more is finished, which means there weren't enough things
+    // in the archive to get to 'hold'
+    moreArchive.once('hold', didLoad);
+    moreArchive.once('end', didLoad);
+    function didLoad() {
+        self._setLoading(false);
+        moreArchive.removeListener('hold', didLoad)
+        moreArchive.removeListener('end', didLoad)
+    };
+    function didLoad() {
+        self._setLoading(false);
+    }
     this._archiveStream = this._chronosStream.pipe(moreArchive);
     this._archiveStream.pipe(this._listStream);
     this._archiveStream.setGoal(this.showMoreAmount);

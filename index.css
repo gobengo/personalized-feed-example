@@ -5,7 +5,18 @@
     box-sizing: border-box;
 }
 
-/** center the show more button */
+/* hide the feed until it is loaded */
+.custom-activity-feed[data-loading] > * {
+    display: none;
+}
+.custom-activity-feed[data-loading] .custom-activity-feed-loading-message {
+    display: block;
+}
+.custom-activity-feed .custom-activity-feed-loading-message {
+    display: none;
+}
+
+/* center the show more button */
 .custom-activity-feed > *[data-show-more] {
     display: block;
     margin: 0 auto;
