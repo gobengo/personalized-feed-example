@@ -45,7 +45,7 @@ Livefyre.require(['personalized-feed-stub#0'], function (PersonalizedNewsFeed) {
 </script>
 ```
 
-See [index.html](./index.html) in this repo for a more elaborate implementation of `.renderActivity` that renders Livefyre Collection metadata whenever an activity whose `object.objectType === 'collection'` streams by. [index.css](./index.css) renders these CustomActivityElements.
+See [index.html](./index.html) in this repo for a more elaborate implementation of `.renderActivity` that renders Livefyre Collection metadata whenever an activity whose `object.objectType === 'collection'` streams by. [index.css](./index.css) styles these CustomActivityElements.
 
 ## Advanced Features
 
@@ -78,4 +78,29 @@ You may similarly want more HTML control over the list that contains each render
     <div role="list" class="my-custom-activity-list"></div>
     <button data-show-more>Show More</button>
 </div>
+```
+
+### Loading Screen
+
+PersonalizedNewsFeed will add a `data-loading` attribute to its HTMLElement upon construction, and will remove it once the initial activities have been fetched, rendered, and appended to the feed element.
+
+You can use this attribute to show a loading screen until there are activities to show off to the user.
+
+```html
+<div id="element-the-feed-should-be-in"
+     class="custom-activity-feed"
+     data-loading>
+    <div role="progressbar">Your personalized news feed is loading...</div>
+    <div role="list" class="my-custom-activity-list"></div>
+    <button data-show-more>Show More</button>
+</div>
+<style>
+.custom-activity-feed[data-loading] > *:not([role="progressbar"]),
+.custom-activity-feed > [role="progressbar"] {
+    display: none;
+}
+.custom-activity-feed[data-loading] > [role="progressbar"] {
+    display: block;
+}
+</style>
 ```

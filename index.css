@@ -5,15 +5,16 @@
     box-sizing: border-box;
 }
 
-/* hide the feed until it is loaded */
-.custom-activity-feed[data-loading] > * {
+/*
+hide the feed until it is loaded.
+except the [role="progressbar"]
+*/
+.custom-activity-feed[data-loading] > *:not([role="progressbar"]),
+.custom-activity-feed > [role="progressbar"] {
     display: none;
 }
-.custom-activity-feed[data-loading] .custom-activity-feed-loading-message {
+.custom-activity-feed[data-loading] > [role="progressbar"] {
     display: block;
-}
-.custom-activity-feed .custom-activity-feed-loading-message {
-    display: none;
 }
 
 /* center the show more button */
