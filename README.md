@@ -15,13 +15,16 @@ You are free to fork this library or host it somewhere of your choosing. If that
 ## Example
 
 ```html
+<div id="element-the-feed-should-be-in"></div>
 <script src="https://cdn.livefyre.com/Livefyre.js"></script>
 <script>
 // pinning to major version 0. You can be more specific if you like
 // e.g. personalized-feed-stub#0.0.0-pre.0
 Livefyre.require(['personalized-feed-stub#0'], function (PersonalizedNewsFeed) {
     // 1. Construct a PersonalizedNewsFeed
-    var feed = new PersonalizedNewsFeed();
+    var feed = new PersonalizedNewsFeed({
+        el: document.getElementById('element-the-feed-should-be-in')
+    });
     // 2. Implement .renderActivity
     feed.renderActivity = function (activity) {
         // nerd-mode implementation
