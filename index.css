@@ -64,7 +64,7 @@ ul.custom-activity-list {
 .custom-activity > [property="tags"] > * > a[rel="tag"] {
     background-color: rgb(234,234,228);
     display: inline-block;
-    padding: .25em;
+    padding: .2em;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;

@@ -39,59 +39,99 @@ feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmls
  * Specify the renderActivity method to create HTMLElements
  * for each piece of data
  */
-(function (template) {
-    // Cache an HTMLElement created from the template
+feed.renderActivity = function (activity) {
+    try {
+        var el = new CustomActivityElement(activity);
+    } catch (e) {
+        console.error("Failed to render activity", e, activity);
+        return;
+    }
+    return el;
+}
+
+/**
+ * Custom Activity Element
+ * feel free to modify this as you like, or create your own
+ */
+
+function CustomActivityElement(activity) {
+    if ( ! this instanceof CustomActivityElement) {
+        return new CustomActivityElement(activity);
+    }
+    var collection = (activity && activity.object) || {};
+    if (collection.objectType !== 'collection') {
+        // only render collection activities
+        throw new Error("Cannot render non-collection activity");
+    }
+    var el = CustomActivityElement.templateEl.cloneNode(true);
+    this.el = el;
+    this.activity = activity;
+    this.render();
+    return el;
+}
+
+// Cache an HTMLElement created from the template
+CustomActivityElement.templateEl = (function (template) {
     var temp = document.createElement('div');
     temp.innerHTML = template;
-    template = temp.firstElementChild;
-    // activity (object) -> HTMLElement
-    feed.renderActivity = function (activity) {
-        var collection = (activity && activity.object) || {};
-        if (collection.objectType !== 'collection') {
-            // only render collection activities
-            return;
-        }
-        var el = template.cloneNode(true);
-        el.setAttribute('resource', collection.id)
-        // title
-        var titleH1 = el.querySelector(prop('title'));
-        titleH1.innerHTML = collection.title;
-        if (collection.url) {
-            // wrap title in link with proper .url
-            var titleLink = document.createElement('a');
-            titleLink.setAttribute('href', collection.url);
-            titleLink.appendChild(titleH1.cloneNode(true));
-            titleH1.parentNode.replaceChild(titleLink, titleH1);
-        }
-        // published time
-        var publishedEl = el.querySelector(prop('published'));
-        publishedEl.setAttribute('datetime', activity.published);
-        publishedEl.innerHTML = formatPublished(activity.published);
-        // tags
-        var tagList = el.querySelector(prop('tags'));
-        var tagTemplate = tagList.firstElementChild.cloneNode(true);
-        // remove template children
-        while (tagList.firstChild) {
-            tagList.removeChild(tagList.firstChild);
-        }
-        var tagFrag = document.createDocumentFragment();
-        (collection.tags || []).forEach(function (tag) {
-            var tagEl = tagTemplate.cloneNode(true);
-            tagEl.querySelector(prop('displayName')).innerHTML = tag.displayName;
-            tagEl.setAttribute('resource', tag.id);
-            tagFrag.appendChild(tagEl);
-        });
-        tagList.appendChild(tagFrag);
-        return el;
-    };
-    function prop(name) {
-        return '[property="{name}"'.replace('{name}', name);
-    }
-    function formatPublished(iso8601) {
-        var d = new Date(Date.parse(iso8601));
-        return formatDate(d);
-    }
+    return temp.firstElementChild;
 }(document.getElementById('activity-template').innerHTML));
+
+
+
+CustomActivityElement.prototype.render = function () {
+    this.el.setAttribute('resource', this.activity.object.id);
+    this.renderTitle();
+    this.renderPublished();
+    this.renderTags();
+};
+
+CustomActivityElement.prototype.renderTitle = function () {
+    var titleH1 = this.el.querySelector(prop('title'));
+    var collection = this.activity.object;
+    titleH1.innerHTML = collection.title;
+    if (collection.url) {
+        // wrap title in link with proper .url
+        var titleLink = document.createElement('a');
+        titleLink.setAttribute('href', collection.url);
+        titleLink.appendChild(titleH1.cloneNode(true));
+        titleH1.parentNode.replaceChild(titleLink, titleH1);
+    }
+};
+
+CustomActivityElement.prototype.renderPublished = function () {
+    var publishedEl = this.el.querySelector(prop('published'));
+    var activity = this.activity;
+    publishedEl.setAttribute('datetime', activity.published);
+    publishedEl.innerHTML = formatPublished(activity.published);
+}
+
+CustomActivityElement.prototype.renderTags = function () {
+    var tagList = this.el.querySelector(prop('tags'));
+    var tagTemplate = tagList.firstElementChild.cloneNode(true);
+    var collection = this.activity.object;
+    // remove template children
+    while (tagList.firstChild) {
+        tagList.removeChild(tagList.firstChild);
+    }
+    var tagFrag = document.createDocumentFragment();
+    (collection.tags || []).forEach(function (tag) {
+        var tagEl = tagTemplate.cloneNode(true);
+        tagEl.querySelector(prop('displayName')).innerHTML = tag.displayName;
+        tagEl.setAttribute('resource', tag.id);
+        tagFrag.appendChild(tagEl);
+    });
+    tagList.appendChild(tagFrag);    
+}
+
+function prop(name) {
+    return '[property="{name}"'.replace('{name}', name);
+}
+
+function formatPublished(iso8601) {
+    var d = new Date(Date.parse(iso8601));
+    return formatDate(d);
+}
 
 /**
  * Format a date object to be displayed to humans
