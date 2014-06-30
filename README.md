@@ -1,4 +1,4 @@
-# personalized-feed-stub
+# Livefyre Personalized Application Stub
 
 A stub of a Livefyre-powered Web Component that renders a personalized feed of social activities based on topics you follow in Livefyre.
 
@@ -57,9 +57,11 @@ In the above example, we passed `PersonalizedNewsFeed` an element to render in.
 
 By adding children to your container element (and sometimes some corresponding styles) you can unlock some extra features.
 
-### Custom ActivityList
+### Show More Button
 
+Add an element with a `data-show-more` attribute, and whenever that element is clicked, the PersonalizedNewsFeed will fetch more activities from the server, render them, and append them to the list.
 
+Other than the `data-show-more` attribute, you can add whatever other attributes or classes you desire.
 
 ```html
 <div id="element-the-feed-should-be-in">
@@ -67,14 +69,13 @@ By adding children to your container element (and sometimes some corresponding s
 </div>
 ```
 
-### Show More Button
+### Custom Activity List
 
-Add an element with a `data-show-more` attribute, and whenever that element is clicked, the PersonalizedNewsFeed will fetch more activities from the server, render them, and append them to the list.
-
-Other than the `data-show-more` attribute, you can add whatever 
+You may similarly want more HTML control over the list that contains each rendered activity. If the element you pass to the `PersonalizedNewsFeed` constructor has a child whose `role` attribute is `list`, rendered activities will be rendered in that element. Otherwise, a list element will be created and appended to the feed for you.
 
 ```html
 <div id="element-the-feed-should-be-in">
+    <div role="list" class="my-custom-activity-list"></div>
     <button data-show-more>Show More</button>
 </div>
 ```
