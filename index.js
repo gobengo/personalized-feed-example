@@ -119,11 +119,11 @@ PersonalizedNewsFeed.prototype._setTopic = function (topic) {
     // or more is finished, which means there weren't enough things
     // in the archive to get to 'hold'
     moreArchive.once('hold', didLoad);
-    moreArchive.once('end', didLoad);
+    moreArchive.once('finish', didLoad);
     function didLoad() {
         self._setLoading(false);
         moreArchive.removeListener('hold', didLoad)
-        moreArchive.removeListener('end', didLoad)
+        moreArchive.removeListener('finish', didLoad)
     };
     function didLoad() {
         self._setLoading(false);

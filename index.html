@@ -37,7 +37,7 @@ var feed = new (Livefyre['personalized-feed-stub'])({
  * When a user logs in, call feed.setToken with his or her
  * Livefyre Authentication Token
  */
-feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNzUyODYwOC40Mzg5MTcsICJ1c2VyX2lkIjogIjUzYTg3Y2RhYTkwYTgzMzM3OTAwMDAwMCJ9.GbRXxw-R0GNo3u8yGX4u03MLCQ4LvBBnqL4xejMDBwk');
+feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNTU1NjY2NC4wNjA3NDksICJ1c2VyX2lkIjogIjUzOWY4YWE4ODU4ODllNzlmNTAwMDA0YSJ9.rLEkCWfTV-Jld-mWhiiQ4znJYwUfX3F4pa-l81oR6Y0');
 
 /**
  * Specify the renderActivity method to create HTMLElements
@@ -47,7 +47,7 @@ feed.renderActivity = function (activity) {
     try {
         var el = new CustomActivityElement(activity);
     } catch (e) {
-        console.error("Failed to render activity", e, activity);
+        console.log("wont render non-collection-create activity", e, activity);
         return;
     }
     return el;
@@ -63,8 +63,8 @@ function CustomActivityElement(activity) {
         return new CustomActivityElement(activity);
     }
     var collection = (activity && activity.object) || {};
-    if (collection.objectType !== 'collection') {
-        // only render collection activities
+    // only render collection created activities
+    if (collection.objectType !== 'collection' || activity.verb !== 'create') {
         throw new Error("Cannot render non-collection activity");
     }
     var el = CustomActivityElement.templateEl.cloneNode(true);
