@@ -4,6 +4,7 @@ var StreamClient = require('livefyre-stream-client');
 var through = require('through2');
 var More = require('stream-more');
 var ActivityElement = require('activity-element');
+var mapStream = require('through2-map');
 
 module.exports = PersonalizedNewsFeed;
 
@@ -36,7 +37,7 @@ function PersonalizedNewsFeed(opts) {
  * Request that {amount} more activities are added to the Feed
  */
 PersonalizedNewsFeed.prototype.showMore = function (amount) {
-    this._archiveStream.setGoal(amount || this.showMoreAmount);
+    this._activityList.showMore(amount);
 };
 
 PersonalizedNewsFeed.prototype._setLoading = function (isLoading) {
@@ -47,6 +48,21 @@ PersonalizedNewsFeed.prototype._setLoading = function (isLoading) {
         el.setAttribute(loadingAttr, '');
     } else {
         el.removeAttribute(loadingAttr);
+    }
+};
+
+/**
+ * Set whether there is more data to be gotten by clicking a show more button
+ * This will add/remove a data-has-more attribute
+ */
+PersonalizedNewsFeed.prototype._setHasMore = function (hasMore) {
+    hasMore = (arguments.length === 0) ? true : hasMore;
+    var el = this.el;
+    var hasMoreAttr = 'data-has-more';
+    if (hasMore) {
+        el.setAttribute(hasMoreAttr, '');
+    } else {
+        el.removeAttribute(hasMoreAttr);
     }
 };
 
@@ -73,7 +89,7 @@ PersonalizedNewsFeed.prototype.renderActivity = function (activity) {
  * Else a new element will be prepended to this.el
  */
 PersonalizedNewsFeed.prototype._createActivityList = function () {
-    var newsFeed = this;
+    var self = this;
     // if there is a child with [role=list], render in that
     var childListEl = [].filter.call(this.el.children, function (child) {
         return child.getAttribute('role') === 'list';
@@ -81,65 +97,72 @@ PersonalizedNewsFeed.prototype._createActivityList = function () {
     var list = new ActivityList(childListEl);
     // if there was no child el to render in, prepend list to this
     if ( ! childListEl) {
-      newsFeed.el.insertBefore(list.el, newsFeed.el.firstChild);
+      self.el.insertBefore(list.el, self.el.firstChild);
     }
     // the list should render activities according to this.renderActivity
     list.renderActivity = function () {
-        return newsFeed.renderActivity.apply(newsFeed, arguments);
+        return self.renderActivity.apply(self, arguments);
     }
+    // we're fully loaded once the more stream holds onto stuff
+    // or more is finished, which means there weren't enough things
+    // in the archive to get to 'hold'
+    var more = list.more;
+    more.once('hold', didLoad);
+    more.once('finish', didLoad);
+    function didLoad() {
+        self._setLoading(false);
+        more.removeListener('hold', didLoad)
+        more.removeListener('finish', didLoad)
+    };
+    more.on('hold', function () {
+        self._setHasMore(true);
+    });
+    more.on('finish', function () {
+        self._setHasMore(false);
+    });
     return list;
 };
 
 PersonalizedNewsFeed.prototype._setTopic = function (topic) {
     var self = this;
+    var updates = this._updates;
+
     if (topic === this._topic) {
         // same as before, do nothing
         return;
     }
     this._topic = topic;
     // get rid of old topic streams
-    if (this._archiveStream) {
-        this._archiveStream.unpipe(this._listStream);
+    if (this._topicArchive) {
+        this._topicArchive.unpipe(this._activityList.more);
     }
     if (this._streamClient) {
         this._streamClient.disconnect();
     }
     // connect new ones
     // old stuff (chronos through more)
-    this._chronosStream = new ChronosStream(topic, {
+    this._topicArchive = new ChronosStream(topic, {
         lowWaterMark: 0,
         highWaterMark: 0
     }).auth(this._userToken);
-    var moreArchive = new More({
-        objectMode: true,
-        highWaterMark: 0,
-        lowWaterMark: 0
-    });
-    // we're fully loaded once the more stream holds onto stuff
-    // or more is finished, which means there weren't enough things
-    // in the archive to get to 'hold'
-    moreArchive.once('hold', didLoad);
-    moreArchive.once('finish', didLoad);
-    function didLoad() {
-        self._setLoading(false);
-        moreArchive.removeListener('hold', didLoad)
-        moreArchive.removeListener('finish', didLoad)
-    };
-    function didLoad() {
-        self._setLoading(false);
-    }
-    this._archiveStream = this._chronosStream.pipe(moreArchive);
-    this._archiveStream.pipe(this._listStream);
-    this._archiveStream.setGoal(this.showMoreAmount);
+    this._topicArchive.pipe(this._activityList.more);
+
     // new stuff
     if ( ! this._streamClient) {
-        this._streamClient = new StreamClient({
-            hostname: "stream.qa-ext.livefyre.com",
-            port: "80"
-        });
+        this._streamClient = this._createUpdater();
         this._streamClient.pipe(this._listStream);
     }
     this._streamClient.connect(this._userToken, topic);
+};
+
+/**
+ * Create a Stream of real-time updates
+ */
+PersonalizedNewsFeed.prototype._createUpdater = function () {
+    return new StreamClient({
+        hostname: "stream.qa-ext.livefyre.com",
+        port: "80"
+    });
 };
 
 PersonalizedNewsFeed.prototype._addEventListeners = function () {

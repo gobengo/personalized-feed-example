@@ -29,15 +29,9 @@
 (function () {
 
 // create the feed
-var feed = new (Livefyre['personalized-feed-stub'])({
+var feed = window.feed = new (Livefyre['personalized-feed-stub'])({
     el: document.getElementById('feed')
 });
-
-/**
- * When a user logs in, call feed.setToken with his or her
- * Livefyre Authentication Token
- */
-feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNTU1NjY2NC4wNjA3NDksICJ1c2VyX2lkIjogIjUzOWY4YWE4ODU4ODllNzlmNTAwMDA0YSJ9.rLEkCWfTV-Jld-mWhiiQ4znJYwUfX3F4pa-l81oR6Y0');
 
 /**
  * Specify the renderActivity method to create HTMLElements
@@ -52,6 +46,12 @@ feed.renderActivity = function (activity) {
     }
     return el;
 }
+
+/**
+ * When a user logs in, call feed.setToken with his or her
+ * Livefyre Authentication Token
+ */
+feed.setToken('eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJkb21haW4iOiAicHJvZmlsZXMtcWEuZnlyZS5jbyIsICJleHBpcmVzIjogMTQwNTU1NjY2NC4wNjA3NDksICJ1c2VyX2lkIjogIjUzOWY4YWE4ODU4ODllNzlmNTAwMDA0YSJ9.rLEkCWfTV-Jld-mWhiiQ4znJYwUfX3F4pa-l81oR6Y0');
 
 /**
  * Custom Activity Element

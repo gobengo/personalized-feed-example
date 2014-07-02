@@ -17,10 +17,14 @@ except the [role="progressbar"]
     display: block;
 }
 
-/* center the show more button */
+/* center the show more button, and hide by default */
 .custom-activity-feed > *[data-show-more] {
-    display: block;
+    display: none;
     margin: 0 auto;
+}
+/* show the button when there is mroe */
+.custom-activity-feed[data-has-more] > *[data-show-more] {
+    display: block;
 }
 
 /** The feed contains a list */
