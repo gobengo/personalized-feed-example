@@ -15,6 +15,7 @@ module.exports = PersonalizedNewsFeed;
 function PersonalizedNewsFeed(opts) {
     opts = opts || {};
     this.el = opts.el || document.createElement('div');
+    this._debug = opts.debug;
     this._setLoading(true);
     // show this many more when asked
     this.showMoreAmount = 10;
@@ -159,7 +160,8 @@ PersonalizedNewsFeed.prototype._setTopic = function (topic) {
 PersonalizedNewsFeed.prototype._createUpdater = function () {
     return new StreamClient({
         hostname: "stream.qa-ext.livefyre.com",
-        port: "80"
+        port: "80",
+        debug: this._debug
     });
 };
 
