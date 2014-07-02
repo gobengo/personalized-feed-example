@@ -1,6 +1,6 @@
 {
   "name": "personalized-feed-stub",
-  "version": "0.0.0-pre.3",
+  "version": "0.0.0-pre.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "activity-list": "git+https://github.com/gobengo/activity-list.git",
     "chronos-stream": "git+https://github.com/gobengo/chronos-stream.git",
     "stream-client": "git+https://github.com/Livefyre/stream-client.git",
+    "stream-more": "0.0.0-dev.1",
     "through2": "^0.5.1",
     "through2-map": "^1.4.0"
   }
