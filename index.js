@@ -1,9 +1,8 @@
 var ActivityList = require('activity-list');
+var More = require('stream-more');
 var ChronosStream = require('chronos-stream');
 var StreamClient = require('livefyre-stream-client');
 var through = require('through2');
-var More = require('stream-more');
-var mapStream = require('through2-map');
 
 module.exports = PersonalizedNewsFeed;
 
