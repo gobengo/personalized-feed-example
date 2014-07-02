@@ -160,7 +160,7 @@ PersonalizedNewsFeed.prototype._setTopic = function (topic) {
 PersonalizedNewsFeed.prototype._createUpdater = function () {
     return new StreamClient({
         hostname: "stream.qa-ext.livefyre.com",
-        port: "80",
+        port: 80,
         debug: this._debug
     });
 };
