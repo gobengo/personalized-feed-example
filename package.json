@@ -1,6 +1,6 @@
 {
   "name": "personalized-feed-stub",
-  "version": "0.0.0-pre.8",
+  "version": "0.0.1-pre.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,14 +9,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "activity-list": "0.0.4",
+    "activity-list": "0.0.6",
     "browserify": "^4.1.11",
     "uglify-js": "^2.4.14",
     "watchify": "^0.10.2"
   },
   "dependencies": {
-    "chronos-stream": "^0.0.2",
-    "livefyre-stream-client": "git+https://github.com/Livefyre/stream-client.git",
+    "chronos-stream": "^0.1.0",
+    "livefyre-stream-client": "0.0.5-dev.3",
     "stream-more": "^0.0.2",
     "through2": "^0.5.1"
   }
