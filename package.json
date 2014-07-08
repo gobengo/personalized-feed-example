@@ -15,7 +15,7 @@
     "watchify": "^0.10.2"
   },
   "dependencies": {
-    "chronos-stream": "^0.0.2",
+    "chronos-stream": "^0.1.0",
     "livefyre-stream-client": "0.0.5-dev.3",
     "stream-more": "^0.0.2",
     "through2": "^0.5.1"
