@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "activity-list": "0.0.4",
+    "activity-list": "0.0.6",
     "browserify": "^4.1.11",
     "uglify-js": "^2.4.14",
     "watchify": "^0.10.2"
