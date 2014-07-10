@@ -1,201 +1,111 @@
 {
   "name": "personalized-feed-stub",
-<<<<<<< HEAD
-  "version": "0.0.1-pre.0",
+  "version": "0.0.1",
   "dependencies": {
     "Base64": {
       "version": "0.2.1",
       "from": "https://registry.npmjs.org/Base64/-/Base64-0.2.1.tgz",
-=======
-  "version": "0.0.0-pre.8",
-  "dependencies": {
-    "Base64": {
-      "version": "0.2.1",
-      "from": "Base64@0.2.1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
       "resolved": "https://registry.npmjs.org/Base64/-/Base64-0.2.1.tgz"
     },
     "chronos-stream": {
       "version": "0.1.0",
-<<<<<<< HEAD
-      "from": "chronos-stream@0.1.0",
+      "from": "https://registry.npmjs.org/chronos-stream/-/chronos-stream-0.1.0.tgz",
       "resolved": "https://registry.npmjs.org/chronos-stream/-/chronos-stream-0.1.0.tgz",
       "dependencies": {
         "http-browserify-xdr": {
           "version": "1.4.1",
-          "from": "http-browserify-xdr@1.4.1",
+          "from": "https://registry.npmjs.org/http-browserify-xdr/-/http-browserify-xdr-1.4.1.tgz",
           "resolved": "https://registry.npmjs.org/http-browserify-xdr/-/http-browserify-xdr-1.4.1.tgz"
         },
         "is-array": {
           "version": "1.0.1",
           "from": "https://registry.npmjs.org/is-array/-/is-array-1.0.1.tgz",
           "resolved": "https://registry.npmjs.org/is-array/-/is-array-1.0.1.tgz"
-=======
-      "from": "chronos-stream@",
-      "dependencies": {
-        "http-browserify-xdr": {
-          "version": "1.4.1",
-          "from": "http-browserify-xdr@^1.4.1"
-        },
-        "is-array": {
-          "version": "1.0.1",
-          "from": "is-array@^1.0.1",
-          "resolved": "https://registry.npmjs.org/is-array/-/is-array-1.0.1.tgz"
-        },
-        "stream-browserify": {
-          "version": "1.0.0",
-          "from": "stream-browserify@^1.0.0",
-          "resolved": "https://registry.npmjs.org/stream-browserify/-/stream-browserify-1.0.0.tgz"
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
         }
       }
     },
     "inherits": {
       "version": "2.0.1",
-<<<<<<< HEAD
       "from": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz",
-=======
-      "from": "inherits@2.0.1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
       "resolved": "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz"
     },
     "livefyre-stream-client": {
       "version": "0.0.5-dev.3",
-<<<<<<< HEAD
-      "from": "livefyre-stream-client@0.0.5-dev.3",
+      "from": "https://registry.npmjs.org/livefyre-stream-client/-/livefyre-stream-client-0.0.5-dev.3.tgz",
       "resolved": "https://registry.npmjs.org/livefyre-stream-client/-/livefyre-stream-client-0.0.5-dev.3.tgz",
       "dependencies": {
         "browser-builtins": {
           "version": "3.1.0",
           "from": "https://registry.npmjs.org/browser-builtins/-/browser-builtins-3.1.0.tgz",
-=======
-      "from": "livefyre-stream-client@",
-      "dependencies": {
-        "browser-builtins": {
-          "version": "3.1.0",
-          "from": "browser-builtins@^3.1.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/browser-builtins/-/browser-builtins-3.1.0.tgz",
           "dependencies": {
             "punycode": {
               "version": "1.2.4",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/punycode/-/punycode-1.2.4.tgz",
-=======
-              "from": "punycode@1.2.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/punycode/-/punycode-1.2.4.tgz"
             },
             "console-browserify": {
               "version": "1.0.3",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/console-browserify/-/console-browserify-1.0.3.tgz",
-=======
-              "from": "console-browserify@1.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/console-browserify/-/console-browserify-1.0.3.tgz"
             },
             "vm-browserify": {
               "version": "0.0.4",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz",
-=======
-              "from": "vm-browserify@0.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz",
               "dependencies": {
                 "indexof": {
                   "version": "0.0.1",
-<<<<<<< HEAD
                   "from": "https://registry.npmjs.org/indexof/-/indexof-0.0.1.tgz",
-=======
-                  "from": "indexof@0.0.1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                   "resolved": "https://registry.npmjs.org/indexof/-/indexof-0.0.1.tgz"
                 }
               }
             },
             "crypto-browserify": {
               "version": "1.0.9",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-1.0.9.tgz",
-=======
-              "from": "crypto-browserify@1.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-1.0.9.tgz"
             },
             "http-browserify": {
               "version": "1.0.2",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/http-browserify/-/http-browserify-1.0.2.tgz",
-=======
-              "from": "http-browserify@1.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/http-browserify/-/http-browserify-1.0.2.tgz"
             },
             "native-buffer-browserify": {
               "version": "1.0.3",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/native-buffer-browserify/-/native-buffer-browserify-1.0.3.tgz",
-=======
-              "from": "native-buffer-browserify@1.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/native-buffer-browserify/-/native-buffer-browserify-1.0.3.tgz",
               "dependencies": {
                 "base64-js": {
                   "version": "0.0.4",
-<<<<<<< HEAD
                   "from": "https://registry.npmjs.org/base64-js/-/base64-js-0.0.4.tgz",
-=======
-                  "from": "base64-js@0.0.4",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                   "resolved": "https://registry.npmjs.org/base64-js/-/base64-js-0.0.4.tgz"
                 }
               }
             },
             "zlib-browserify": {
               "version": "0.0.3",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/zlib-browserify/-/zlib-browserify-0.0.3.tgz",
-=======
-              "from": "zlib-browserify@0.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/zlib-browserify/-/zlib-browserify-0.0.3.tgz",
               "dependencies": {
                 "tape": {
                   "version": "0.2.2",
-<<<<<<< HEAD
                   "from": "https://registry.npmjs.org/tape/-/tape-0.2.2.tgz",
-=======
-                  "from": "tape@~0.2.2",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                   "resolved": "https://registry.npmjs.org/tape/-/tape-0.2.2.tgz",
                   "dependencies": {
                     "jsonify": {
                       "version": "0.0.0",
-<<<<<<< HEAD
                       "from": "https://registry.npmjs.org/jsonify/-/jsonify-0.0.0.tgz",
-=======
-                      "from": "jsonify@~0.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                       "resolved": "https://registry.npmjs.org/jsonify/-/jsonify-0.0.0.tgz"
                     },
                     "deep-equal": {
                       "version": "0.0.0",
-<<<<<<< HEAD
                       "from": "https://registry.npmjs.org/deep-equal/-/deep-equal-0.0.0.tgz",
-=======
-                      "from": "deep-equal@~0.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                       "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-0.0.0.tgz"
                     },
                     "defined": {
                       "version": "0.0.0",
-<<<<<<< HEAD
                       "from": "https://registry.npmjs.org/defined/-/defined-0.0.0.tgz",
-=======
-                      "from": "defined@~0.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
                       "resolved": "https://registry.npmjs.org/defined/-/defined-0.0.0.tgz"
                     }
                   }
@@ -204,40 +114,24 @@
             },
             "constants-browserify": {
               "version": "0.0.1",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/constants-browserify/-/constants-browserify-0.0.1.tgz",
-=======
-              "from": "constants-browserify@0.0.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/constants-browserify/-/constants-browserify-0.0.1.tgz"
             },
             "os-browserify": {
               "version": "0.1.2",
-<<<<<<< HEAD
               "from": "https://registry.npmjs.org/os-browserify/-/os-browserify-0.1.2.tgz",
-=======
-              "from": "os-browserify@0.1.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
               "resolved": "https://registry.npmjs.org/os-browserify/-/os-browserify-0.1.2.tgz"
             }
           }
         },
         "events-event-emitter": {
           "version": "0.0.4",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/events-event-emitter/-/events-event-emitter-0.0.4.tgz",
-=======
-          "from": "events-event-emitter@0.0.4",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/events-event-emitter/-/events-event-emitter-0.0.4.tgz"
         },
         "util-extend": {
           "version": "1.0.1",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/util-extend/-/util-extend-1.0.1.tgz",
-=======
-          "from": "util-extend@^1.0.1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/util-extend/-/util-extend-1.0.1.tgz"
         },
         "sockjs-client": {
@@ -247,58 +141,34 @@
     },
     "readable-stream": {
       "version": "1.0.27-1",
-<<<<<<< HEAD
       "from": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.27-1.tgz",
-=======
-      "from": "readable-stream@1.0.27-1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
       "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.27-1.tgz",
       "dependencies": {
         "core-util-is": {
           "version": "1.0.1",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz",
-=======
-          "from": "core-util-is@~1.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/core-util-is/-/core-util-is-1.0.1.tgz"
         },
         "isarray": {
           "version": "0.0.1",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz",
-=======
-          "from": "isarray@0.0.1",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
         },
         "string_decoder": {
           "version": "0.10.25-1",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25-1.tgz",
-=======
-          "from": "string_decoder@~0.10.x",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.25-1.tgz"
         }
       }
     },
     "stream-browserify": {
       "version": "1.0.0",
-<<<<<<< HEAD
       "from": "https://registry.npmjs.org/stream-browserify/-/stream-browserify-1.0.0.tgz",
-=======
-      "from": "stream-browserify@1.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
       "resolved": "https://registry.npmjs.org/stream-browserify/-/stream-browserify-1.0.0.tgz"
     },
     "stream-more": {
       "version": "0.0.2",
-<<<<<<< HEAD
       "from": "https://registry.npmjs.org/stream-more/-/stream-more-0.0.2.tgz",
-=======
-      "from": "stream-more@",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
       "resolved": "https://registry.npmjs.org/stream-more/-/stream-more-0.0.2.tgz"
     },
     "through2": {
@@ -308,11 +178,7 @@
       "dependencies": {
         "xtend": {
           "version": "3.0.0",
-<<<<<<< HEAD
           "from": "https://registry.npmjs.org/xtend/-/xtend-3.0.0.tgz",
-=======
-          "from": "xtend@~3.0.0",
->>>>>>> dd81a535fde70ca6e892c993b2cd16d1ff03b445
           "resolved": "https://registry.npmjs.org/xtend/-/xtend-3.0.0.tgz"
         }
       }
