@@ -103,11 +103,19 @@ CustomActivityElement.prototype.renderTitle = function () {
     }
 };
 
+var raf = window.requestAnimationFrame || function (cb) {
+    return setTimeout(cb, 1000);
+};
+
 CustomActivityElement.prototype.renderPublished = function () {
     var publishedEl = this.el.querySelector(prop('published'));
     var activity = this.activity;
     publishedEl.setAttribute('datetime', activity.published);
-    publishedEl.innerHTML = formatPublished(activity.published);
+    raf(function loop() {
+        publishedEl.innerHTML = formatPublished(activity.published);        
+        raf(loop);
+    });
+    return publishedEl;
 }
 
 CustomActivityElement.prototype.renderTags = function () {

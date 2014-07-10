@@ -1,6 +1,6 @@
 {
   "name": "personalized-feed-stub",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "browser": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "activity-list": "^0.0.6",
+    "activity-list": "^0.0.8",
     "browserify": "^4.1.11",
     "uglify-js": "^2.4.14",
     "watchify": "^0.10.2"
