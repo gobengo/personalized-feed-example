@@ -22,7 +22,7 @@
     <button data-show-more>Show More</button>
 </div>
 
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
 <script src="https://cdn.livefyre.com/Livefyre.js"></script>
 <script src="./dist/personalized-feed-stub.js"></script>
 <script>
@@ -133,7 +133,7 @@ function prop(name) {
 }
 
 function formatPublished(iso8601) {
-    var d = new Date(Date.parse(iso8601));
+    var d = new Date(moment(iso8601));
     return formatDate(d);
 }
 
