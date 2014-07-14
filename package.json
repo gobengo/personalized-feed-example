@@ -1,6 +1,6 @@
 {
   "name": "personalized-feed-stub",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "browser": {
@@ -18,8 +18,8 @@
     "watchify": "^0.10.2"
   },
   "dependencies": {
-    "chronos-stream": "^0.1.0",
-    "livefyre-stream-client": "^0.0.5-dev.3",
+    "chronos-stream": "^0.2.0",
+    "livefyre-stream-client": "^0.0.8",
     "stream-more": "^0.0.2",
     "through2": "^0.5.1"
   }

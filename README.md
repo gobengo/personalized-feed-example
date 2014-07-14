@@ -47,6 +47,21 @@ Livefyre.require(['personalized-feed-stub#0'], function (PersonalizedNewsFeed) {
 
 See [index.html](./index.html) in this repo for a more elaborate implementation of `.renderActivity` that renders Livefyre Collection metadata whenever an activity whose `object.objectType === 'collection'` streams by. [index.css](./index.css) styles these CustomActivityElements.
 
+## API
+
+This package exports a constructor that takes the following options
+
+* el - optional - An existing HTMLElement to render in
+* environment - 'production' (default), 'uat', or 'qa' - The Livefyre Environment to connect to.
+
+Example:
+```javascript
+var myFeed = new PersonalizedNewsFeed({
+    el: document.getElementById('my-element'),
+    environment: 'uat'
+});
+```
+
 ## Advanced Features
 
 In the above example, we passed `PersonalizedNewsFeed` an element to render in.
