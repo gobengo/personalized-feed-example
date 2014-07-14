@@ -3,20 +3,26 @@ var More = require('stream-more');
 var ChronosStream = require('chronos-stream');
 var StreamClient = require('livefyre-stream-client');
 var through = require('through2');
+var debug = require('debug');
+var log = debug('personalized-feed-stub');
 
 module.exports = PersonalizedNewsFeed;
+module.exports.debug = debug;
 
 /**
  * A list of rendered activities that are personalized to the logged-in user.
  * @param [opts] {object} options
  * @param [opts.el] {HTMLElement} an HTMLElement to render in. If not provided,
  *   one will be created automatically and accessible at .el
+ * @param [opts.environment='production'] {string} qa|staging|production will
+ *   be passed as opts.environment to chronosStream and streamClient
  */
 function PersonalizedNewsFeed(opts) {
     opts = opts || {};
     this.el = opts.el || document.createElement('div');
     this._debug = opts.debug;
     this._setLoading(true);
+    this._environment = opts.environment || 'production';
     // show this many more when asked
     this.showMoreAmount = 10;
     this._topic = null;
@@ -140,29 +146,50 @@ PersonalizedNewsFeed.prototype._setTopic = function (topic) {
     }
     // connect new ones
     // old stuff (chronos through more)
-    this._topicArchive = new ChronosStream(topic, {
-        lowWaterMark: 0,
-        highWaterMark: 0
-    }).auth(this._userToken);
+    this._topicArchive = this._createArchive({
+        topic: topic,
+        environment: this._environment
+    });
+    this._topicArchive.auth(this._userToken);
     this._topicArchive.pipe(this._activityList.more);
 
     // new stuff
     if ( ! this._streamClient) {
-        this._streamClient = this._createUpdater();
+        this._streamClient = this._createUpdater({
+            environment: this._environment
+        });
         this._streamClient.pipe(this._listStream);
     }
     this._streamClient.connect(this._userToken, topic);
 };
 
+/** 
+ * Create a Stream of historical activities
+ */
+PersonalizedNewsFeed.prototype._createArchive = function (opts) {
+    var archive = new ChronosStream(opts.topic, {
+        lowWaterMark: 0,
+        highWaterMark: 0,
+        environment: opts.environment
+    });
+    archive.on('error', function (e) {
+        log('archive error', e);
+    });
+    return archive;
+};
+
 /**
  * Create a Stream of real-time updates
  */
-PersonalizedNewsFeed.prototype._createUpdater = function () {
-    return new StreamClient({
-        hostname: "stream.qa-ext.livefyre.com",
-        port: 80,
+PersonalizedNewsFeed.prototype._createUpdater = function (opts) {
+    var updater = new StreamClient({
+        environment: opts.environment,
         debug: this._debug
     });
+    updater.on('error', function (e) {
+        log('updater error', e);
+    });
+    return updater;
 };
 
 PersonalizedNewsFeed.prototype._addEventListeners = function () {
