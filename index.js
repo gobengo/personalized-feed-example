@@ -54,6 +54,21 @@ PersonalizedNewsFeed.prototype._setLoading = function (isLoading) {
     } else {
         el.removeAttribute(loadingAttr);
     }
+
+    /**
+     * There is a bug in old WebKit that prevents the attribute change
+     * from triggering a repaint/reflow. This has only been witnessed in
+     * Android when testing.
+     * http://bit.ly/yunorepaint
+     */
+    if (/android/i.test(navigator.userAgent)) {
+        var ogDisplay = el.style.display;
+        el.style.display = 'none';
+        el.offsetHeight;
+        setTimeout(function () {
+            el.style.display = ogDisplay;        
+        }, 0);
+    }
 };
 
 /**
